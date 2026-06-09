@@ -1,0 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using TodoApi.Models;
+
+namespace TodoApi.Data
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<TodoItem> Todos { get; set; }
+    }
+}
