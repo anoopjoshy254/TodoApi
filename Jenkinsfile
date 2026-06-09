@@ -44,8 +44,8 @@ pipeline {
                         sh "docker rm todo-backend || true"
                         sh "docker run -d --name todo-backend -p 5064:8080 ${DOCKER_IMAGE}"
                     } else {
-                        bat "docker stop todo-backend 2>NUL || rem"
-                        bat "docker rm todo-backend 2>NUL || rem"
+                        bat "docker stop todo-backend 2>NUL || exit 0"
+                        bat "docker rm todo-backend 2>NUL || exit 0"
                         bat "docker run -d --name todo-backend -p 5064:8080 ${DOCKER_IMAGE}"
                     }
                 }
