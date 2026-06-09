@@ -49,8 +49,8 @@ pipeline {
                         
                         bat "docker network create todo-network 2>NUL || exit 0"
                         
-                        // Start MySQL if it's not already running
-                        bat "docker start todo-mysql 2>NUL || docker run -d --name todo-mysql --network todo-network -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=TodoDb -p 3306:3306 mysql:8.0"
+                        // Start MySQL if it's not already running (without publishing the port to the host to avoid conflicts)
+                        bat "docker start todo-mysql 2>NUL || docker run -d --name todo-mysql --network todo-network -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=TodoDb mysql:8.0"
                         
                         // Start the backend, connecting it to the todo-mysql container
                         bat "docker run -d --name todo-backend --network todo-network -e \"ConnectionStrings__DefaultConnection=server=todo-mysql;database=TodoDb;user=root;password=root;\" -p 5064:8080 ${DOCKER_IMAGE}"
